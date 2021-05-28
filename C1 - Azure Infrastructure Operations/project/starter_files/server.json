@@ -5,7 +5,13 @@
 		"subscription_id": "{{env `ARM_SUBSCRIPTION_ID`}}"
 	},
 	"builders": [{
-		**YOUR CODE HERE**
+		"type": "azure-arm",
+		"os_type": "Linux",
+		"image_publisher": "Canonical",
+		"image_offer": "UbuntuServer",
+		"image_sku": "18.04-LTS",
+		"managed_image_resource_group_name": "udacity",
+
 	}],
 	"provisioners": [{
 		"inline": [
@@ -16,3 +22,6 @@
 		"type: "shell"
 	}]
 }
+
+
+
