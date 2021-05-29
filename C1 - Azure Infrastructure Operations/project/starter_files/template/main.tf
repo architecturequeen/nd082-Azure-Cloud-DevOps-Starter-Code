@@ -94,3 +94,17 @@ resource "azurerm_network_security_group" "nsg3" {
     destination_address_prefix = "10.0.2.0/24"
   }
 }
+
+# create network interface
+resource "azurerm_network_interface" "nic" {
+  name                = "${var.prefix}-nic"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.rg.name
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.subnet.id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+
