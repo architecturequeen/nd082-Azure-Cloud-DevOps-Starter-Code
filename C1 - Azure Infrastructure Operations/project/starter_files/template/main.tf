@@ -108,3 +108,15 @@ resource "azurerm_network_interface" "nic" {
   }
 }
 
+# create public ip
+resource "azurerm_public_ip" "publicip" {
+  name                = "${var.prefix}-pubip"
+  resource_group_name = azurerm_resource_group.example.name
+  location            = var.location
+  allocation_method   = "Static"
+
+  tags = {
+    environment = ""
+  }
+}
+
