@@ -138,3 +138,10 @@ resource "azurerm_lb_backend_address_pool" "backendpool" {
   loadbalancer_id     = azurerm_lb.lb.id
   name                = "acctestpool"
 }
+
+# create association between a Network Interface and load balancer backend pool
+resource "azurerm_network_interface_backend_address_pool_association" "nicbp" {
+  network_interface_id    = azurerm_network_interface.nic.id
+  ip_configuration_name   = "configuration1"
+  backend_address_pool_id = azurerm_lb_backend_address_pool.backendpool.id
+}
