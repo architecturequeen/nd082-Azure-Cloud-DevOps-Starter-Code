@@ -111,12 +111,24 @@ resource "azurerm_network_interface" "nic" {
 # create public ip
 resource "azurerm_public_ip" "publicip" {
   name                = "${var.prefix}-pubip"
-  resource_group_name = azurerm_resource_group.example.name
+  resource_group_name = azurerm_resource_group.rg.name
   location            = var.location
   allocation_method   = "Static"
 
   tags = {
     environment = ""
+  }
+}
+
+# create load balancer
+resource "azurerm_lb" "lb" {
+  name                = "${var.prefix}-lb"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.rg.name
+
+  frontend_ip_configuration {
+    name                 = "PublicIPAddress"
+    public_ip_address_id = azurerm_public_ip.publicip.id
   }
 }
 
