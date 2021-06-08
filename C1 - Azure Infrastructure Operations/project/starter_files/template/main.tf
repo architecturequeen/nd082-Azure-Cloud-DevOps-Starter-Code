@@ -132,3 +132,9 @@ resource "azurerm_lb" "lb" {
   }
 }
 
+# create backend address pool
+resource "azurerm_lb_backend_address_pool" "backendpool" {
+  resource_group_name = azurerm_resource_group.rg.name
+  loadbalancer_id     = azurerm_lb.lb.id
+  name                = "acctestpool"
+}
