@@ -136,7 +136,7 @@ resource "azurerm_lb" "lb" {
 resource "azurerm_lb_backend_address_pool" "backendpool" {
   resource_group_name = azurerm_resource_group.rg.name
   loadbalancer_id     = azurerm_lb.lb.id
-  name                = "acctestpool"
+  name                = "${var.prefix}-bakendpool"
 }
 
 # create association between a Network Interface and load balancer backend pool
@@ -144,4 +144,15 @@ resource "azurerm_network_interface_backend_address_pool_association" "nicbp" {
   network_interface_id    = azurerm_network_interface.nic.id
   ip_configuration_name   = "configuration1"
   backend_address_pool_id = azurerm_lb_backend_address_pool.backendpool.id
+}
+
+# create virtual machine availability set
+resource "azurerm_availability_set" "avset" {
+  name                = "${var.prefix}-avset"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.rg.name
+
+  tags = {
+    environment = ""
+  }
 }
